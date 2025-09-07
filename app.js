@@ -63,6 +63,11 @@ function score(item, q) {
 }
 const compareAlpha = (a,b) => a.command.localeCompare(b.command, 'sv');
 
+// ---- badge helpers ----
+function slug(s=''){
+  return String(s).toLowerCase().replace(/[^a-z0-9+.-]+/g,'-');
+}
+
 function render() {
   const q = searchInput.value.trim().toLowerCase();
   const c = catSelect.value;
@@ -81,12 +86,16 @@ function render() {
 }
 
 function toCard(it) {
-  const tags = (it.tags || []).map(t => `<span class="badge">#${t}</span>`).join(' ');
+  const catClass = `badge badge--cat badge--${slug(it.category)}`;
+  const tags = (it.tags || [])
+    .map(t => `<span class="badge badge--tag badge--${slug(t)}">${t}</span>`)
+    .join(' ');
+
   return `
   <article class="card" role="listitem">
     <header>
       <code class="cmd">${escapeHtml(it.command)}</code>
-      <span class="badge">${it.category}</span>
+      <span class="${catClass}">${it.category}</span>
     </header>
     <p class="desc">${escapeHtml(it.description)}</p>
     ${it.example ? `<pre class="cmd" aria-label="Exempel"><code>${escapeHtml(it.example)}</code></pre>` : ''}
