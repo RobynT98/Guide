@@ -140,3 +140,13 @@ window.addEventListener('keydown', (e) => {
 });
 
 loadData();
+const btn = document.getElementById('themeToggle');
+const saved = localStorage.getItem('theme') || 'light';
+document.body.classList.add(saved);
+
+btn.addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+  document.body.classList.toggle('light');
+  const theme = document.body.classList.contains('dark') ? 'dark' : 'light';
+  localStorage.setItem('theme', theme);
+});
