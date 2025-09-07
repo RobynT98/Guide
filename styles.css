@@ -87,3 +87,88 @@ details summary { cursor:pointer; }
     color: #064e3b;      /* mörk text */
   }
 }
+/* Base badge */
+.badge {
+  display:inline-block;
+  padding:.18rem .5rem;
+  border-radius:.5rem;
+  font-size:.78rem;
+  font-weight:600;
+  letter-spacing:.02em;
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow: 0 6px 18px rgba(0,0,0,.25);
+  user-select:none;
+}
+
+/* Standardfärger (fallback) */
+:root {
+  --badge-bg:#0d9488;   /* teal */
+  --badge-fg:#ffffff;
+}
+.badge { background:var(--badge-bg); color:var(--badge-fg); }
+
+/* Ljus/dark-justering */
+@media (prefers-color-scheme: light) {
+  .badge { border-color: rgba(0,0,0,.08); }
+}
+
+/* Fokus – tillgängligt */
+.badge:focus-visible,
+.btn:focus-visible {
+  outline:2px solid #fff;
+  outline-offset:2px;
+}
+
+/* --------- Teman per kategori/tagg --------- */
+/* Linux/WSL/OS */
+.badge--wsl      { background:#2563eb; } /* blå */
+.badge--linux    { background:#f59e0b; color:#0b0b0c; } /* amber */
+.badge--windows  { background:#0ea5e9; }
+
+/* Shell & VCS */
+.badge--bash     { background:#16a34a; } /* grön */
+.badge--git      { background:#ef4444; }
+.badge--github   { background:#111827; }
+.badge--zsh      { background:#10b981; }
+
+/* JS/TS/Node */
+.badge--javascript,
+.badge--js       { background:#f7df1e; color:#111; }
+.badge--typescript,
+.badge--ts       { background:#3178c6; }
+.badge--node,
+.badge--nodejs   { background:#3c873a; }
+
+/* Paket & bygg */
+.badge--npm      { background:#cb0000; }
+.badge--pnpm     { background:#4caf50; }
+.badge--yarn     { background:#2188b6; }
+.badge--vite     { background:#8a2be2; }
+
+/* Ramverk */
+.badge--react    { background:#61dafb; color:#0b0b0c; }
+.badge--vue      { background:#42b883; }
+.badge--angular  { background:#dd0031; }
+
+/* Web & PWA */
+.badge--pwa      { background:#673ab7; }
+.badge--serviceworker,
+.badge--sw       { background:#374151; }
+.badge--workbox  { background:#0f766e; }
+
+/* Moln/Backend */
+.badge--firebase { background:#ffca28; color:#111; }
+.badge--supabase { background:#3ecf8e; }
+.badge--vercel   { background:#111; }
+
+/* Filformat/verktyg */
+.badge--json     { background:#7c3aed; }
+.badge--yaml,
+.badge--yml      { background:#f59e0b; color:#111; }
+.badge--docker   { background:#0db7ed; }
+.badge--markdown,
+.badge--md       { background:#6b7280; }
+
+/* Meta-klasser (om du vill särskilja) */
+.badge--cat { filter:saturate(1.1); }
+.badge--tag { opacity:.95; }
