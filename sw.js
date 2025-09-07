@@ -1,58 +1,45 @@
-const CACHE_NAME = 'static-v10';
+// sw.js
+const CACHE = 'pwa-guide-v4'; // bumpa detta när du ändrar
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
   './app.js',
   './manifest.webmanifest',
-  './icon-192.png', // fallback om du lägger dem i roten
-  './icon-512.png'
+  './icons/icon-192.png',
+  './icons/icon-512.png',
 ];
 
-// Install
-self.addEventListener('install', (e) => {
-  e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(ASSETS)));
-  self.skipWaiting();
+// Installera och cacha statiska filer
+self.addEventListener('install', e => {
+  e.waitUntil(
+    caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting())
+  );
 });
 
-// Activate
-self.addEventListener('activate', (e) => {
+// Aktivera direkt
+self.addEventListener('activate', e => {
   e.waitUntil(
     caches.keys().then(keys =>
-      Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
-    )
+      Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
+    ).then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
-// Fetch
-self.addEventListener('fetch', (e) => {
+// Nätet först för JSON (alltid färsk lista), cache först för statiska filer
+self.addEventListener('fetch', e => {
   const url = new URL(e.request.url);
 
-  // Navigations → index.html
-  if (e.request.mode === 'navigate') {
-    e.respondWith(caches.match('./index.html').then(r => r || fetch(e.request)));
-    return;
-  }
-
-  // JSON → network-first
+  // Låt data/commands.json alltid gå nätet-först
   if (url.pathname.endsWith('/data/commands.json')) {
     e.respondWith(
-      fetch(e.request)
-        .then(res => {
-          const clone = res.clone();
-          caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
-          return res;
-        })
-        .catch(() => caches.match(e.request))
+      fetch(e.request).catch(() => caches.match(e.request))
     );
     return;
   }
 
-  // Övriga GET → cache-first
-  if (e.request.method === 'GET') {
-    e.respondWith(
-      caches.match(e.request).then(cached => cached || fetch(e.request))
-    );
-  }
+  // Statiska filer: cache-först, fallback nät
+  e.respondWith(
+    caches.match(e.request).then(res => res || fetch(e.request))
+  );
 });
