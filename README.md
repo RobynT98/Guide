@@ -1,6 +1,9 @@
 # 📱 PWA-lathund – Mobil
 En komplett guide för att bygga, felsöka och publicera Progressive Web Apps (PWA).  
 Fokus: mobil (Acode, GitHub, Firebase Hosting) + dator/WSL (Node, Vite, Workbox).
+
+👉 **Testa appen här:** [Kommandodatabas på GitHub Pages](https://robynT98.github.io/pwa-guide/)
+
 ## Badges
 
 ![PWA](https://img.shields.io/badge/Type-PWA-blue)
