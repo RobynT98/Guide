@@ -177,3 +177,37 @@ details summary { cursor:pointer; }
 pre.cmd code { color:#e5e7eb; }          /* kod i pre */
 .meta .btn { border-color:#3b4957; }     /* tydligare knappar */
 
+/* Gör badges alltid läsbara */
+.badge {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #fff;              /* ← alltid vit text */
+  background: #666;         /* fallback */
+}
+.badge--tag { opacity: 0.9; }
+
+/* Ljusare bakgrund för card + tydligare text */
+.card {
+  background: #1e1e1e;      /* mörk men ej svart */
+  color: #f1f1f1;           /* ljus text */
+  border: 1px solid #333;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin: 0.5rem 0;
+}
+
+/* Kodblock */
+pre code {
+  background: #111;         /* mörk kodruta */
+  color: #f8f8f2;           /* ljus kodtext */
+  display: block;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+}
+
+body.light { background: #fff; color: #000; }
+body.dark  { background: #121212; color: #eee; }
