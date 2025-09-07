@@ -172,3 +172,4 @@ details summary { cursor:pointer; }
 /* Meta-klasser (om du vill särskilja) */
 .badge--cat { filter:saturate(1.1); }
 .badge--tag { opacity:.95; }
+
