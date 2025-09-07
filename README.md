@@ -15,7 +15,7 @@ Fokus: mobil (Acode, GitHub, Firebase Hosting) + dator/WSL (Node, Vite, Workbox)
 - [Usage / Examples](#usage--examples)
 - [Deployment](#deployment)
 - [Documentation (Firebase)](#documentation-firebase)
-- [Felsökning](#felsökning)
+- [Felsökning] (#felsökning)
 - [Tips ](#tips)
 
 ## Installation
