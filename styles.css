@@ -173,3 +173,7 @@ details summary { cursor:pointer; }
 .badge--cat { filter:saturate(1.1); }
 .badge--tag { opacity:.95; }
 
+.desc { color:#e5e7eb; }                 /* ljusare brödtext */
+pre.cmd code { color:#e5e7eb; }          /* kod i pre */
+.meta .btn { border-color:#3b4957; }     /* tydligare knappar */
+
