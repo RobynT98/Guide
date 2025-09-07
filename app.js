@@ -11,7 +11,7 @@ const installBtn  = el('#installBtn');
 let all = [];
 let deferredPrompt = null;
 
-// A2HS
+// A2HS (Add to Home Screen)
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
@@ -23,14 +23,27 @@ installBtn?.addEventListener('click', async () => {
   deferredPrompt = null;
 });
 
-// Load data
+// Load data (with cache bust + error log)
 async function loadData() {
   try {
-    const r = await fetch('data/commands.json', { cache: 'no-store' });
-    all = await r.json();
+    const url = `data/commands.json?ts=${Date.now()}`; // bypass cache
+    const r = await fetch(url, { cache: 'no-store' });
+
+    if (!r.ok) {
+      throw new Error(`HTTP ${r.status} ${r.statusText}`);
+    }
+
+    const text = await r.text();
+    try {
+      all = JSON.parse(text);
+    } catch (e) {
+      console.error('JSON-parse-fel i commands.json. Förhandsvisning:', text.slice(0, 200));
+      throw e;
+    }
   } catch (e) {
     console.error('Kunde inte ladda commands.json', e);
     all = [];
+    countEl.textContent = 'Fel: kunde inte ladda commands.json';
   }
   initFilters();
   render();
@@ -38,7 +51,9 @@ async function loadData() {
 
 function initFilters() {
   const cats = Array.from(new Set(all.map(x => x.category))).sort();
-  catSelect.innerHTML = '<option value="">Alla kategorier</option>' + cats.map(c => `<option value="${c}">${c}</option>`).join('');
+  catSelect.innerHTML =
+    '<option value="">Alla kategorier</option>' +
+    cats.map(c => `<option value="${c}">${c}</option>`).join('');
   // restore last state
   const s = localStorage.getItem('cmdSearch') || '';
   const c = localStorage.getItem('cmdCat') || '';
