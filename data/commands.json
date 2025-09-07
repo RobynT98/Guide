@@ -13,9 +13,6 @@
   { "category": "bash", "command": "ps aux | grep node", "description": "Hitta körande processer.", "example": "ps aux | grep node", "tags": ["proc"] },
   { "category": "bash", "command": "kill -9 <pid>", "description": "Tvångsdöda process.", "example": "kill -9 12345", "tags": ["proc"] },
 
-  /* =======================
-     Git / GitHub
-     ======================= */
   { "category": "git", "command": "git init", "description": "Initiera repo.", "example": "git init", "tags": ["vcs"] },
   { "category": "git", "command": "git add .", "description": "Stagea allt.", "example": "git add .", "tags": ["stage"] },
   { "category": "git", "command": "git commit -m \"msg\"", "description": "Skapa commit.", "example": "git commit -m \"init\"", "tags": ["commit"] },
@@ -25,10 +22,7 @@
   { "category": "git", "command": "git log --oneline --graph --decorate --all", "description": "Kompakt historik.", "example": "git log --oneline --graph --decorate --all", "tags": ["history"] },
   { "category": "git", "command": "git pull --rebase", "description": "Hämta + rebase (ren historik).", "example": "git pull --rebase", "tags": ["sync"] },
   { "category": "git", "command": "git stash && git stash pop", "description": "Lägg undan/återställ ändringar.", "example": "git stash\n#...\ngit stash pop", "tags": ["work"] },
-
-  /* =======================
-     Node / npm / pnpm / yarn / nvm
-     ======================= */
+  
   { "category": "node", "command": "node -v", "description": "Visa Node-version.", "example": "node -v", "tags": ["version"] },
   { "category": "node", "command": "node --watch app.js", "description": "Kör och restart vid ändringar.", "example": "node --watch server.js", "tags": ["watch"] },
   { "category": "node", "command": "node --env-file=.env app.js", "description": "Ladda .env (Node 20+).", "example": "node --env-file=.env app.js", "tags": ["env"] },
