@@ -1,154 +1,166 @@
-/* ---------- Basvariabler ---------- */
-:root {
-  --brand: #0d9488;
-  --fg-light: #000;
-  --bg-light: #fff;
-  --fg-dark: #eee;
-  --bg-dark: #121212;
-  --card-dark: #1e1e1e;
-  --card-light: #f9f9f9;
-  --border-dark: #333;
-  --border-light: #ddd;
-}
+/* =========================
+   Tema-variabler (enda källan)
+   ========================= */
+:root{
+  /* Light default */
+  --bg: #ffffff;
+  --fg: #111111;
+  --muted: #6b7280;
 
-/* ---------- Globalt ---------- */
-* { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; height: 100%; font-family: system-ui, sans-serif; }
-body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-
-/* ---------- Light/Dark ---------- */
-body.light { background: var(--bg-light); color: var(--fg-light); }
-body.dark  { background: var(--bg-dark);  color: var(--fg-dark); }
-
-/* ---------- Topbar ---------- */
-.topbar {
-  position: sticky; top: 0; z-index: 10;
-  display: flex; justify-content: space-between; align-items: center;
-  padding: .85rem 1rem;
-  background: rgba(10,17,20,.9); backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--border-dark);
-}
-h1 { margin: 0; font-size: 1.25rem; }
-
-/* ---------- Controls ---------- */
-.controls {
-  display: grid; gap: .5rem; grid-template-columns: 1fr;
-  padding: .85rem 1rem; border-bottom: 1px solid var(--border-dark);
-}
-@media (min-width: 720px) {
-  .controls { grid-template-columns: 1fr 200px 180px auto; align-items: center; }
-}
-input[type="search"], select {
-  width: 100%; padding: .65rem .75rem; border-radius: .6rem;
-  border: 1px solid var(--border-dark);
-  background: #0f1519; color: inherit;
-}
-input[type="search"]::placeholder { color: #79838d; }
-.muted { color: #9aa0a6; font-size: .9rem; text-align: right; }
-
-/* ---------- Cards ---------- */
-.results { display: grid; gap: .85rem; padding: 1rem; max-width: 980px; margin: 0 auto; }
-.card {
-  border-radius: .75rem; padding: 1rem;
-  border: 1px solid var(--border-dark);
-  box-shadow: 0 6px 18px rgba(0,0,0,.25);
-}
-body.dark .card  { background: var(--card-dark); color: var(--fg-dark); }
-body.light .card { background: var(--card-light); color: var(--fg-light); }
-
-.card header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; }
-
-/* ---------- Text & Kod ---------- */
-.desc { margin-top: .5rem; font-size: .95rem; }
-pre.cmd { margin: .5rem 0; padding: .65rem .75rem; border-radius: .6rem; overflow: auto; }
-body.dark pre.cmd { background: #111; color: #f8f8f2; }
-body.light pre.cmd { background: #f1f1f1; color: #111; }
-
-/* ---------- Buttons ---------- */
-.btn {
-  appearance: none; cursor: pointer;
-  border: 1px solid var(--border-dark);
-  padding: .45rem .7rem; border-radius: .55rem;
-  background: #0f1519; color: inherit;
-}
-.btn:hover { border-color: #3b4957; }
-#installBtn { background: var(--brand); border: none; color: black; font-weight: 600; }
-#installBtn:hover { filter: brightness(1.05); }
-
-/* ---------- Badges ---------- */
-.badge {
-  display: inline-block;
-  padding: .15rem .5rem;
-  border-radius: .5rem;
-  font-size: .75rem;
-  font-weight: 600;
-  color: #fff;
-  background: #666; /* fallback */
-  user-select: none;
-}
-.badge--cat { filter: saturate(1.1); }
-.badge--tag { opacity: .95; }
-
-/* Specifika färger */
-.badge--wsl { background: #2563eb; }
-.badge--linux { background: #f59e0b; color: #111; }
-.badge--windows { background: #0ea5e9; }
-.badge--bash { background: #16a34a; }
-.badge--git { background: #ef4444; }
-.badge--github { background: #111827; }
-.badge--js, .badge--javascript { background: #f7df1e; color: #111; }
-.badge--ts, .badge--typescript { background: #3178c6; }
-.badge--node { background: #3c873a; }
-.badge--npm { background: #cb0000; }
-.badge--pnpm { background: #4caf50; }
-.badge--vite { background: #8a2be2; }
-.badge--pwa { background: #673ab7; }
-.badge--http { background: #10b981; }
-.badge--yaml, .badge--yml { background: #f59e0b; color: #111; }
-.badge--json { background: #7c3aed; }
-.badge--docker { background: #0db7ed; }
-/* Grundvariabler */
-:root {
-  --bg: #fff;
-  --fg: #111;
   --card-bg: #f7f7f7;
-  --card-fg: #111;
+  --card-fg: #111111;
+  --card-border: #dddddd;
+
+  --ctrl-bg: #ffffff;
+  --ctrl-fg: #111111;
+  --ctrl-border: #cbd5e1;
+  --ctrl-placeholder: #9ca3af;
+
+  --brand: #0d9488;         /* teal */
+  --chip: #0d9488;
+  --shadow: 0 6px 18px rgba(0,0,0,.12);
 }
 
-/* Ljus */
-body.light {
-  --bg: #fff;
-  --fg: #111;
-  --card-bg: #f7f7f7;
-  --card-fg: #111;
+/* Dark overrides */
+body.dark{
+  --bg: #121212;
+  --fg: #eeeeee;
+  --muted: #9aa0a6;
+
+  --card-bg: #1e1e1e;
+  --card-fg: #eeeeee;
+  --card-border: #333333;
+
+  --ctrl-bg: #171a1d;
+  --ctrl-fg: #eeeeee;
+  --ctrl-border: #30363d;
+  --ctrl-placeholder: #79838d;
+
+  --shadow: 0 10px 24px rgba(0,0,0,.25);
 }
 
-/* Mörk */
-body.dark {
-  --bg: #111;
-  --fg: #f5f5f5;
-  --card-bg: #222;
-  --card-fg: #f5f5f5;
+/* =========================
+   Bas
+   ========================= */
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{
+  font:16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  background:var(--bg);
+  color:var(--fg);
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
 }
 
-/* Använd variabler */
-body {
-  background: var(--bg);
-  color: var(--fg);
+/* =========================
+   Topbar
+   ========================= */
+.topbar{
+  position:sticky; top:0; z-index:10;
+  display:flex; align-items:center; justify-content:space-between; gap:.75rem;
+  padding:.85rem 1rem;
+  background: color-mix(in oklab, var(--bg) 85%, black 15%);
+  border-bottom:1px solid var(--card-border);
+  backdrop-filter: blur(8px);
+}
+h1{margin:0;font-size:1.25rem}
+
+/* =========================
+   Controls
+   ========================= */
+.controls{
+  display:grid; gap:.5rem; grid-template-columns:1fr;
+  padding:.85rem 1rem; border-bottom:1px solid var(--card-border);
+}
+@media (min-width:720px){
+  .controls{grid-template-columns:1fr 200px 180px auto; align-items:center}
+}
+input[type="search"], select{
+  width:100%; padding:.65rem .75rem; border-radius:.6rem;
+  background:var(--ctrl-bg); color:var(--ctrl-fg);
+  border:1px solid var(--ctrl-border);
+}
+input[type="search"]::placeholder{color:var(--ctrl-placeholder)}
+.muted{color:var(--muted); font-size:.9rem; text-align:right}
+
+/* =========================
+   Results & cards
+   ========================= */
+.results{display:grid; gap:.85rem; padding:1rem; max-width:980px; margin:0 auto}
+.card{
+  background:var(--card-bg); color:var(--card-fg);
+  border:1px solid var(--card-border);
+  border-radius:.75rem; padding:1rem; box-shadow:var(--shadow)
+}
+.card header{display:flex; gap:.5rem; align-items:center; justify-content:space-between; flex-wrap:wrap}
+.desc{margin-top:.5rem; font-size:.95rem}
+
+/* Kodblock */
+pre.cmd{margin:.5rem 0; padding:.65rem .75rem; border-radius:.6rem; overflow:auto;
+  background:color-mix(in oklab, var(--card-bg) 70%, black 30%);
+  border:1px solid var(--card-border);
+}
+pre.cmd code{color:var(--card-fg)}
+.cmd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace}
+
+/* =========================
+   Buttons
+   ========================= */
+.btn{
+  appearance:none; cursor:pointer;
+  padding:.45rem .7rem; border-radius:.55rem;
+  background:var(--ctrl-bg); color:var(--ctrl-fg);
+  border:1px solid var(--ctrl-border);
+}
+.btn:hover{filter:brightness(1.03)}
+.btn:focus-visible{outline:2px solid var(--brand); outline-offset:2px}
+
+/* Installera-knapp */
+#installBtn{background:var(--brand); border:none; color:#00110f; font-weight:700}
+#installBtn:hover{filter:brightness(1.06)}
+
+/* Kopiera-knapp – tydlig status */
+.btn.copy{transition:.15s ease background,color,border-color}
+.btn.copy.is-copied{
+  background: var(--brand);
+  color: #00110f;
+  border-color: var(--brand);
 }
 
-.card {
-  background: var(--card-bg);
-  color: var(--card-fg);
+/* =========================
+   Badges
+   ========================= */
+.badge{
+  display:inline-block; padding:.18rem .5rem; border-radius:.5rem;
+  font-size:.78rem; font-weight:600; letter-spacing:.02em;
+  color:#fff; background:#666; user-select:none;
 }
+.badge--cat{filter:saturate(1.1)}
+.badge--tag{opacity:.95}
+.meta{display:flex; align-items:center; justify-content:space-between; gap:.75rem; margin-top:.65rem; flex-wrap:wrap}
 
-select, input, button {
-  background: var(--card-bg);
-  color: var(--card-fg);
-  border: 1px solid var(--fg);
-}
+/* Badge färger (populära) */
+.badge--wsl{background:#2563eb}
+.badge--linux{background:#f59e0b; color:#111}
+.badge--windows{background:#0ea5e9}
+.badge--bash{background:#16a34a}
+.badge--git{background:#ef4444}
+.badge--github{background:#111827}
+.badge--js,.badge--javascript{background:#f7df1e; color:#111}
+.badge--ts,.badge--typescript{background:#3178c6}
+.badge--node,.badge--nodejs{background:#3c873a}
+.badge--npm{background:#cb0000}
+.badge--pnpm{background:#4caf50}
+.badge--yarn{background:#2188b6}
+.badge--vite{background:#8a2be2}
+.badge--react{background:#61dafb; color:#0b0b0c}
+.badge--pwa{background:#673ab7}
+.badge--http{background:#10b981}
+.badge--yaml,.badge--yml{background:#f59e0b; color:#111}
+.badge--json{background:#7c3aed}
+.badge--docker{background:#0db7ed}
 
-/* ---------- Footer ---------- */
-.footer { padding: 1rem; font-size: .9rem; color: #9aa0a6; }
-details summary { cursor: pointer; }
-
+/* =========================
+   Footer
+   ========================= */
+.footer{padding:1rem; font-size:.9rem; color:var(--muted)}
+details summary{cursor:pointer}
