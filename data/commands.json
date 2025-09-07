@@ -1,0 +1,93 @@
+[
+  {
+    "category": "git",
+    "command": "git init",
+    "description": "Initiera ett nytt Git-repo i aktuell mapp.",
+    "example": "git init",
+    "tags": ["vcs", "repo"]
+  },
+  {
+    "category": "git",
+    "command": "git add .",
+    "description": "Stagea alla ändrade/nya filer.",
+    "example": "git add .",
+    "tags": ["vcs", "stage"]
+  },
+  {
+    "category": "git",
+    "command": "git commit -m \"msg\"",
+    "description": "Skapa en commit med meddelande.",
+    "example": "git commit -m \"init\"",
+    "tags": ["vcs", "commit"]
+  },
+  {
+    "category": "git",
+    "command": "git push -u origin main",
+    "description": "Pusha till origin och sätt upstream.",
+    "example": "git push -u origin main",
+    "tags": ["vcs", "remote"]
+  },
+  {
+    "category": "bash",
+    "command": "ls -la",
+    "description": "Lista filer med detaljer, inkl. dolda.",
+    "example": "ls -la",
+    "tags": ["shell"]
+  },
+  {
+    "category": "npm",
+    "command": "npm i -g firebase-tools",
+    "description": "Installera Firebase CLI globalt.",
+    "example": "npm i -g firebase-tools",
+    "tags": ["firebase", "cli"]
+  },
+  {
+    "category": "firebase",
+    "command": "firebase init hosting",
+    "description": "Initiera Firebase Hosting i mappen.",
+    "example": "firebase init hosting",
+    "tags": ["deploy", "hosting"]
+  },
+  {
+    "category": "firebase",
+    "command": "firebase deploy",
+    "description": "Publicera till Hosting.",
+    "example": "firebase deploy",
+    "tags": ["deploy", "hosting"]
+  },
+  {
+    "category": "vite",
+    "command": "npm create vite@latest my-app -- --template vanilla",
+    "description": "Skapa nytt Vite-projekt (vanilla).",
+    "example": "npm create vite@latest my-app -- --template vanilla",
+    "tags": ["node", "build"]
+  },
+  {
+    "category": "pwa",
+    "command": "<link rel=\"manifest\" href=\"manifest.webmanifest\">",
+    "description": "Länka manifestet i HTML.",
+    "example": "<link rel=\"manifest\" href=\"manifest.webmanifest\">",
+    "tags": ["html"]
+  },
+  {
+    "category": "pwa",
+    "command": "navigator.serviceWorker.register('./sw.js', { scope: './' })",
+    "description": "Registrera service worker med relativ path/scope.",
+    "example": "navigator.serviceWorker.register('./sw.js', { scope: './' })",
+    "tags": ["js", "sw"]
+  },
+  {
+    "category": "wsl",
+    "command": "wsl --install",
+    "description": "Installera WSL (Windows 11).",
+    "example": "wsl --install",
+    "tags": ["windows"]
+  },
+  {
+    "category": "markdown",
+    "command": "```bash … ```",
+    "description": "Kodblock i README med språkhighlight.",
+    "example": "```bash\ngit init\n```",
+    "tags": ["docs", "readme"]
+  }
+]
