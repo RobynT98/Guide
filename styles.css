@@ -63,3 +63,27 @@ details summary { cursor:pointer; }
 .meta div:first-child { 
   display:flex; flex-wrap:wrap; gap:.25rem; 
 }
+.badge {
+  display: inline-block;
+  padding: 0.1rem 0.4rem;
+  border-radius: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+
+  /* Färger */
+  background: #0d9488;   /* teal från din theme-color */
+  color: #fff;           /* vit text för kontrast */
+         }
+@media (prefers-color-scheme: dark) {
+  .badge {
+    background: #14b8a6; /* lite ljusare teal */
+    color: #fff;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .badge {
+    background: #ccfbf1; /* ljus bakgrund */
+    color: #064e3b;      /* mörk text */
+  }
+}
