@@ -4,21 +4,28 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>PWA Guide – Kommandodatabas</title>
+
+  <!-- PWA -->
   <meta name="theme-color" content="#0d9488" />
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" href="icons/icon-192.png" sizes="192x192">
-  <link rel="apple-touch-icon" href="icons/icon-192.png">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icons/icon-192.png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-  <header class="topbar">
+<body class="light">
+  <header class="topbar" role="banner">
     <h1>Kommandodatabas</h1>
-    <button id="installBtn" hidden>Installera app</button>
-    <button id="themeToggle">🌝/🌞</button>
+
+    <div class="actions">
+      <button id="installBtn" hidden>Installera app</button>
+      <button id="themeToggle" class="btn" aria-pressed="false" aria-label="Byt till mörkt läge">🌙 Mörkt</button>
+    </div>
   </header>
 
-  <section class="controls">
-    <input id="search" type="search" placeholder="Sök (tryck / för fokus)…" aria-label="Sök kommandon">
+  <section class="controls" role="region" aria-label="Filter och sortering">
+    <input id="search" type="search" placeholder="Sök (tryck / för fokus) …" aria-label="Sök kommandon" autocomplete="off" />
     <select id="category" aria-label="Filtrera kategori">
       <option value="">Alla kategorier</option>
     </select>
@@ -26,12 +33,12 @@
       <option value="relevance">Sortera: Relevans</option>
       <option value="alpha">Sortera: A–Ö</option>
     </select>
-    <span id="count" class="muted"></span>
+    <span id="count" class="muted" role="status" aria-live="polite"></span>
   </section>
 
-  <main id="results" class="results" role="list"></main>
+  <main id="results" class="results" role="list" aria-label="Sökresultat"></main>
 
-  <footer class="footer">
+  <footer class="footer" role="contentinfo">
     <details>
       <summary>Om appen</summary>
       <p>En liten PWA byggd för att snabbt hitta viktiga kommandon offline. Lägg gärna till fler i <code>data/commands.json</code>.</p>
