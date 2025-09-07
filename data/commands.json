@@ -118,5 +118,19 @@
 
   { "category": "lint", "command": "ESLint + TS", "description": "Initiera ESLint i TS-projekt.", "example": "npm i -D eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin\nnpx eslint --init", "tags": ["eslint"] },
   { "category": "format", "command": "Prettier config", "description": "Minimal formatkonfig.", "example": "{ \"singleQuote\": true, \"semi\": false }", "tags": ["prettier"] },
-  { "category": "vitest", "command": "Vitest (Vite test)", "description": "Snabb test-runner.", "example": "npm i -D vitest\nnpx vitest", "tags": ["test"] }
+  { "category": "vitest", "command": "Vitest (Vite test)", "description": "Snabb test-runner.", "example": "npm i -D vitest\nnpx vitest", "tags": ["test"] },
+  { "category": "wsl", "command": "wsl --install", "description": "Installera WSL.", "example": "wsl --install", "tags": ["windows","linux"] },
+  { "category": "wsl", "command": "wsl -l -v", "description": "Lista distros och versioner.", "example": "wsl -l -v", "tags": ["info"] },
+  { "category": "wsl", "command": "wsl --set-default-version 2", "description": "Sätt WSL2 som standard.", "example": "wsl --set-default-version 2", "tags": ["config"] },
+
+  { "category": "bash", "command": "ls -la", "description": "Lista filer inkl. dolda.", "example": "ls -la", "tags": ["files"] },
+  { "category": "bash", "command": "grep -R \"text\" .", "description": "Sök rekursivt i filer.", "example": "grep -R \"manifest\" .", "tags": ["search"] },
+  { "category": "bash", "command": "sed -i 's/old/new/g' fil", "description": "Byt text in-place.", "example": "sed -i 's/static-v1/static-v6/g' sw.js", "tags": ["edit"] },
+
+  { "category": "npm", "command": "npm init -y", "description": "Skapa package.json snabbt.", "example": "npm init -y", "tags": ["node"] },
+  { "category": "npm", "command": "npm i paket", "description": "Installera paket.", "example": "npm i workbox-build -D", "tags": ["deps"] },
+  { "category": "npm", "command": "npm run build", "description": "Kör build-skript.", "example": "npm run build", "tags": ["script"] },
+
+  { "category": "git", "command": "git init && git add . && git commit -m \"init\"", "description": "Initiera repo och commit.", "example": "git init && git add . && git commit -m \"init\"", "tags": ["vcs"] },
+  { "category": "git", "command": "git push -u origin main", "description": "Push med upstream.", "example": "git push -u origin main", "tags": ["vcs"] }
   ]
