@@ -1,45 +1,58 @@
-const STATIC_CACHE = 'static-v2';
-const RUNTIME_CACHE = 'runtime-v2';
+const CACHE_NAME = 'static-v6';
 const ASSETS = [
-  'index.html',
-  'styles.css',
-  'app.js',
-  'manifest.webmanifest',
-  'data/commands.json',
-  'icons/icon-192.png',
-  'icons/icon-512.png'
+  './',
+  './index.html',
+  './styles.css',
+  './app.js',
+  './manifest.webmanifest',
+  './icon-192.png', // fallback om du lägger dem i roten
+  './icon-512.png'
 ];
 
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(STATIC_CACHE).then(c => c.addAll(ASSETS))
-  );
+// Install
+self.addEventListener('install', (e) => {
+  e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(ASSETS)));
   self.skipWaiting();
 });
 
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then(keys => Promise.all(
-      keys.filter(k => ![STATIC_CACHE, RUNTIME_CACHE].includes(k)).map(k => caches.delete(k))
-    ))
+// Activate
+self.addEventListener('activate', (e) => {
+  e.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
+    )
   );
   self.clients.claim();
 });
 
-self.addEventListener('fetch', (event) => {
-  const { request } = event;
-  if (request.method !== 'GET') return;
+// Fetch
+self.addEventListener('fetch', (e) => {
+  const url = new URL(e.request.url);
 
-  // Stale-While-Revalidate för data/ och same-origin requests
-  if (new URL(request.url).origin === self.location.origin) {
-    event.respondWith((async () => {
-      const cached = await caches.match(request);
-      const fetchPromise = fetch(request).then(resp => {
-        const copy = resp.clone();
-        caches.open(RUNTIME_CACHE).then(c => c.put(request, copy));
-        return resp;
-      }).catch(() => cached);
-      return cached || fetchPromise;
-    })());
+  // Navigations → index.html
+  if (e.request.mode === 'navigate') {
+    e.respondWith(caches.match('./index.html').then(r => r || fetch(e.request)));
+    return;
+  }
+
+  // JSON → network-first
+  if (url.pathname.endsWith('/data/commands.json')) {
+    e.respondWith(
+      fetch(e.request)
+        .then(res => {
+          const clone = res.clone();
+          caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
+          return res;
+        })
+        .catch(() => caches.match(e.request))
+    );
+    return;
+  }
+
+  // Övriga GET → cache-first
+  if (e.request.method === 'GET') {
+    e.respondWith(
+      caches.match(e.request).then(cached => cached || fetch(e.request))
+    );
   }
 });
