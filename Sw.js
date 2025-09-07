@@ -1,30 +1,45 @@
-const CACHE = 'app-v1';
-const ASSETS = ['/', '/index.html', '/styles.css', '/app.js', '/manifest.webmanifest'];
+const STATIC_CACHE = 'static-v1';
+const RUNTIME_CACHE = 'runtime-v1';
+const ASSETS = [
+  'index.html',
+  'styles.css',
+  'app.js',
+  'manifest.webmanifest',
+  'data/commands.json',
+  'icons/icon-192.png',
+  'icons/icon-512.png'
+];
 
-self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)));
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(STATIC_CACHE).then(c => c.addAll(ASSETS))
+  );
   self.skipWaiting();
 });
 
-self.addEventListener('activate', e => {
-  e.waitUntil(caches.keys().then(keys =>
-    Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
-  ));
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then(keys => Promise.all(
+      keys.filter(k => ![STATIC_CACHE, RUNTIME_CACHE].includes(k)).map(k => caches.delete(k))
+    ))
+  );
   self.clients.claim();
 });
 
-self.addEventListener('fetch', e => {
-  if (e.request.method !== 'GET') return;
-  e.respondWith(
-    caches.match(e.request).then(cached =>
-      cached || fetch(e.request).then(resp => {
-        caches.open(CACHE).then(c => c.put(e.request, resp.clone()));
-        return resp;
-      })
-    )
-  );
-});
+self.addEventListener('fetch', (event) => {
+  const { request } = event;
+  if (request.method !== 'GET') return;
 
-self.addEventListener('message', e => {
-  if (e.data?.type === 'SKIP_WAITING') self.skipWaiting();
+  // Stale-While-Revalidate för data/ och same-origin requests
+  if (new URL(request.url).origin === self.location.origin) {
+    event.respondWith((async () => {
+      const cached = await caches.match(request);
+      const fetchPromise = fetch(request).then(resp => {
+        const copy = resp.clone();
+        caches.open(RUNTIME_CACHE).then(c => c.put(request, copy));
+        return resp;
+      }).catch(() => cached);
+      return cached || fetchPromise;
+    })());
+  }
 });
