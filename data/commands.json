@@ -3,12 +3,13 @@
   { "category": "wsl", "command": "wsl -l -v", "description": "Lista distros och versioner.", "example": "wsl -l -v", "tags": ["info"] },
   { "category": "wsl", "command": "wsl --set-default-version 2", "description": "Sätt WSL2 som standard.", "example": "wsl --set-default-version 2", "tags": ["config"] },
   { "category": "wsl", "command": "wsl --shutdown", "description": "Stoppa alla WSL-instanser.", "example": "wsl --shutdown", "tags": ["restart"] },
+
   { "category": "bash", "command": "ls -la", "description": "Lista filer inkl. dolda.", "example": "ls -la", "tags": ["files"] },
   { "category": "bash", "command": "grep -R \"text\" .", "description": "Sök rekursivt i filer.", "example": "grep -R \"manifest\" .", "tags": ["search"] },
   { "category": "bash", "command": "sed -i 's/old/new/g' fil", "description": "Byt text in-place.", "example": "sed -i 's/static-v1/static-v2/g' sw.js", "tags": ["edit"] },
-  { "category": "bash", "command": "curl -I <url>", "description": "Hämta endast headers.", "example": "curl -I https://example.com/manifest.webmanifest", "tags": ["http"] },
+  { "category": "bash", "command": "curl -I https://example.com", "description": "Hämta endast headers.", "example": "curl -I https://example.com/manifest.webmanifest", "tags": ["http"] },
   { "category": "bash", "command": "tar -czf out.tgz dir/", "description": "Packa mapp till tgz.", "example": "tar -czf backup.tgz dist/", "tags": ["archive"] },
-  { "category": "bash", "command": "python3 -m http.server 5173", "description": "Starta simpel webbserver.", "example": "python3 -m http.server 5173", "tags": ["serve"] },
+  { "category": "bash", "command": "python3 -m http.server 5173", "description": "Starta enkel webbserver.", "example": "python3 -m http.server 5173", "tags": ["serve"] },
   { "category": "bash", "command": "chmod +x fil", "description": "Gör fil körbar.", "example": "chmod +x bin/cli", "tags": ["perm"] },
   { "category": "bash", "command": "ps aux | grep node", "description": "Hitta körande processer.", "example": "ps aux | grep node", "tags": ["proc"] },
   { "category": "bash", "command": "kill -9 <pid>", "description": "Tvångsdöda process.", "example": "kill -9 12345", "tags": ["proc"] },
@@ -20,36 +21,42 @@
   { "category": "git", "command": "git remote add origin <url>", "description": "Koppla remote.", "example": "git remote add origin https://github.com/user/repo.git", "tags": ["remote"] },
   { "category": "git", "command": "git push -u origin main", "description": "Pusha och sätt upstream.", "example": "git push -u origin main", "tags": ["push"] },
   { "category": "git", "command": "git log --oneline --graph --decorate --all", "description": "Kompakt historik.", "example": "git log --oneline --graph --decorate --all", "tags": ["history"] },
-  { "category": "git", "command": "git pull --rebase", "description": "Hämta + rebase (ren historik).", "example": "git pull --rebase", "tags": ["sync"] },
+  { "category": "git", "command": "git pull --rebase", "description": "Hämta + rebase.", "example": "git pull --rebase", "tags": ["sync"] },
   { "category": "git", "command": "git stash && git stash pop", "description": "Lägg undan/återställ ändringar.", "example": "git stash\n#...\ngit stash pop", "tags": ["work"] },
-  
+
   { "category": "node", "command": "node -v", "description": "Visa Node-version.", "example": "node -v", "tags": ["version"] },
   { "category": "node", "command": "node --watch app.js", "description": "Kör och restart vid ändringar.", "example": "node --watch server.js", "tags": ["watch"] },
   { "category": "node", "command": "node --env-file=.env app.js", "description": "Ladda .env (Node 20+).", "example": "node --env-file=.env app.js", "tags": ["env"] },
   { "category": "node", "command": "node --test", "description": "Kör inbyggda test runnern.", "example": "node --test", "tags": ["test"] },
-  { "category": "nvm",  "command": "nvm install --lts", "description": "Installera senaste LTS.", "example": "nvm install --lts", "tags": ["node"] },
-  { "category": "nvm",  "command": "nvm use 20", "description": "Växla version.", "example": "nvm use 20", "tags": ["node"] },
-  { "category": "npm",  "command": "npm init -y", "description": "Skapa package.json.", "example": "npm init -y", "tags": ["project"] },
-  { "category": "npm",  "command": "npm i <paket>", "description": "Installera beroende.", "example": "npm i express", "tags": ["deps"] },
-  { "category": "npm",  "command": "npm rm <paket>", "description": "Ta bort beroende.", "example": "npm rm express", "tags": ["deps"] },
-  { "category": "npm",  "command": "npm run <script>", "description": "Kör script.", "example": "npm run build", "tags": ["scripts"] },
-  { "category": "npm",  "command": "npx <paket>", "description": "Kör utan att installera.", "example": "npx serve .", "tags": ["npx"] },
+
+  { "category": "nvm", "command": "nvm install --lts", "description": "Installera senaste LTS.", "example": "nvm install --lts", "tags": ["node"] },
+  { "category": "nvm", "command": "nvm use 20", "description": "Växla version.", "example": "nvm use 20", "tags": ["node"] },
+
+  { "category": "npm", "command": "npm init -y", "description": "Skapa package.json.", "example": "npm init -y", "tags": ["project"] },
+  { "category": "npm", "command": "npm i <paket>", "description": "Installera beroende.", "example": "npm i express", "tags": ["deps"] },
+  { "category": "npm", "command": "npm rm <paket>", "description": "Ta bort beroende.", "example": "npm rm express", "tags": ["deps"] },
+  { "category": "npm", "command": "npm run <script>", "description": "Kör script.", "example": "npm run build", "tags": ["scripts"] },
+  { "category": "npm", "command": "npx <paket>", "description": "Kör utan att installera.", "example": "npx serve .", "tags": ["npx"] },
+
   { "category": "pnpm", "command": "pnpm dlx <paket>", "description": "Engångskörning (som npx).", "example": "pnpm dlx create-vite", "tags": ["dlx"] },
   { "category": "pnpm", "command": "pnpm add <paket>", "description": "Lägg till beroende.", "example": "pnpm add workbox-cli", "tags": ["deps"] },
+
   { "category": "yarn", "command": "yarn add <paket>", "description": "Lägg till beroende (Yarn).", "example": "yarn add axios", "tags": ["deps"] },
 
   { "category": "esm", "command": "\"type\": \"module\"", "description": "Tillåt ESM-import i Node.", "example": "{ \"type\": \"module\" }", "tags": ["package.json"] },
   { "category": "esm", "command": "import greet from './greet.js'", "description": "Default-import.", "example": "import greet from './greet.js'", "tags": ["import"] },
   { "category": "esm", "command": "export default function fn(){}", "description": "Default-export.", "example": "export default function greet(){}", "tags": ["export"] },
   { "category": "esm", "command": "import cfg from './config.json' assert { type:'json' }", "description": "Importera JSON i ESM.", "example": "import cfg from './config.json' assert { type:'json' }", "tags": ["json"] },
+
   { "category": "cjs", "command": "const x = require('mod')", "description": "CommonJS require.", "example": "const http = require('http')", "tags": ["require"] },
   { "category": "mjs", "command": ".mjs → tvinga ESM", "description": "ESM utan \"type\": \"module\".", "example": "node src/app.mjs", "tags": ["module"] },
   { "category": "cjs", "command": ".cjs → tvinga CJS", "description": "CommonJS-modul.", "example": "node server.cjs", "tags": ["module"] },
-  { "category": "json", "command": "JSON.parse / JSON.stringify", "description": "Konvertera mellan sträng/objekt.", "example": "JSON.stringify(obj, null, 2)", "tags": ["json"] },
+
+  { "category": "json", "command": "JSON.parse / JSON.stringify", "description": "Konvertera sträng/objekt.", "example": "JSON.stringify(obj, null, 2)", "tags": ["json"] },
   { "category": "json", "command": "package.json – scripts", "description": "Definiera kommandon.", "example": "{ \"scripts\": { \"dev\":\"vite\", \"build\":\"vite build\" } }", "tags": ["package.json"] },
   { "category": "json", "command": "package.json – exports", "description": "Public API för paket.", "example": "{ \"exports\":\"./dist/index.js\" }", "tags": ["package.json"] },
-  { "category": "json", "command": "package.json – bin", "description": "Skapa CLI-kommando.", "example": "{ \"bin\": { \"mincli\": \"./bin/cli.js\" } }", "tags": ["cli"] }
-  
+  { "category": "json", "command": "package.json – bin", "description": "Skapa CLI-kommando.", "example": "{ \"bin\": { \"mincli\": \"./bin/cli.js\" } }", "tags": ["cli"] },
+
   { "category": "js", "command": "fetch → JSON", "description": "Hämta JSON med fetch.", "example": "const data = await fetch('/api').then(r=>r.json())", "tags": ["http"] },
   { "category": "js", "command": "localStorage", "description": "Spara/läs nyckel.", "example": "localStorage.setItem('k','v')", "tags": ["storage"] },
   { "category": "js", "command": "URL + import.meta.url", "description": "Relativ resurs-url i ESM.", "example": "new URL('./img.png', import.meta.url)", "tags": ["url"] },
@@ -61,7 +68,7 @@
   { "category": "ts", "command": "npx tsc --init", "description": "Skapa tsconfig.", "example": "npx tsc --init", "tags": ["config"] },
   { "category": "ts", "command": "tsconfig (NodeNext)", "description": "Modern Node/ESM konfig.", "example": "{ \"compilerOptions\": { \"module\":\"NodeNext\",\"moduleResolution\":\"NodeNext\",\"target\":\"ES2022\",\"outDir\":\"dist\",\"strict\":true } }", "tags": ["config"] },
   { "category": "ts", "command": "tsx (kör TS utan build)", "description": "Snabb körning av TS.", "example": "npm i -D tsx\nnpx tsx src/main.ts", "tags": ["run"] },
-  { "category": "ts", "command": "Generics / Narrowing", "description": "Vardagsmagi i TS.", "example": "function ok<T>(v:T){return v}; function len(x:string|string[]){return typeof x==='string'?x.length:x.length}", "tags": ["types"] },
+  { "category": "ts", "command": "Generics / Narrowing", "description": "Typtips.", "example": "function ok<T>(v:T){return v}; function len(x:string|string[]){return typeof x==='string'?x.length:x.length}", "tags": ["types"] },
   { "category": "tsx", "command": "Minimal TSX-komponent", "description": "React + TSX liten komponent.", "example": "type BtnProps={label:string}\nexport const Btn=({label}:BtnProps)=>(<button>{label}</button>)", "tags": ["react"] },
 
   { "category": "vite", "command": "Skapa projekt (vanilla-ts)", "description": "Vite + TypeScript.", "example": "npm create vite@latest my-app -- --template vanilla-ts", "tags": ["scaffold"] },
@@ -71,6 +78,7 @@
   { "category": "pwa", "command": "<link rel=\"manifest\" href=\"manifest.webmanifest\">", "description": "Länka manifest.", "example": "<link rel=\"manifest\" href=\"manifest.webmanifest\">", "tags": ["manifest"] },
   { "category": "pwa", "command": "navigator.serviceWorker.register('./sw.js',{scope:'./'})", "description": "Registrera SW relativt.", "example": "navigator.serviceWorker.register('./sw.js',{scope:'./'})", "tags": ["sw"] },
   { "category": "pwa", "command": "skipWaiting + clients.claim", "description": "Ta kontroll direkt.", "example": "self.addEventListener('install',()=>self.skipWaiting()); self.addEventListener('activate',()=>self.clients.claim());", "tags": ["sw"] },
+
   { "category": "workbox", "command": "Installera CLI", "description": "Workbox för auto-SW.", "example": "npm i -D workbox-cli", "tags": ["workbox"] },
   { "category": "workbox", "command": "generateSW", "description": "Generera SW vid build.", "example": "workbox generateSW workbox.config.js", "tags": ["workbox","build"] },
   { "category": "workbox", "command": "workbox.config.js (ex)", "description": "Minimal konfig.", "example": "module.exports={ globDirectory:'dist', globPatterns:['**/*.{html,js,css,png,webmanifest}'], swDest:'dist/sw.js' }", "tags": ["config"] },
@@ -86,13 +94,16 @@
 
   { "category": "html", "command": "Meta viewport", "description": "Responsiv skala.", "example": "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />", "tags": ["meta"] },
   { "category": "html", "command": "Theme color", "description": "Statusbar-färg PWA.", "example": "<meta name=\"theme-color\" content=\"#0d9488\">", "tags": ["pwa"] },
-  { "category": "css", "command": "Centera snabbt (grid)", "description": "Placera mitten.", "example": "body{min-height:100svh;display:grid;place-items:center}", "tags": ["layout"] },
+
+  { "category": "css", "command": "Centera (grid)", "description": "Placera mitten.", "example": "body{min-height:100svh;display:grid;place-items:center}", "tags": ["layout"] },
   { "category": "css", "command": "Dark mode auto", "description": "Respektera systemläge.", "example": ":root{color-scheme: light dark}", "tags": ["theme"] },
+
   { "category": "markdown", "command": "Kodblock med språk", "description": "Syntaxhighlight.", "example": "```bash\ngit init\n```", "tags": ["docs"] },
   { "category": "markdown", "command": "Länk", "description": "MD-länk.", "example": "[PWA](https://robynT98.github.io/pwa-guide/)", "tags": ["docs"] },
-  
+
   { "category": "http", "command": "curl GET → JSON", "description": "GET och parsa.", "example": "curl -s https://api.github.com | jq '.'", "tags": ["curl","jq"] },
   { "category": "http", "command": "curl POST JSON", "description": "Skicka JSON.", "example": "curl -X POST -H 'Content-Type: application/json' -d '{\"a\":1}' https://httpbin.org/post", "tags": ["curl"] },
+
   { "category": "jq", "command": "jq filter", "description": "Plocka fält ur JSON.", "example": "jq '.items[].name' data.json", "tags": ["json"] },
 
   { "category": "python", "command": "python -m venv .venv", "description": "Skapa venv.", "example": "python -m venv .venv", "tags": ["venv"] },
@@ -101,10 +112,11 @@
 
   { "category": "sqlite", "command": "sqlite3 test.db '.tables'", "description": "Visa tabeller.", "example": "sqlite3 data.db '.tables'", "tags": ["db"] },
   { "category": "sqlite", "command": "sqlite3 test.db 'select 1;'", "description": "Snabb fråga.", "example": "sqlite3 data.db 'select count(*) from notes;'", "tags": ["db"] },
+
   { "category": "docker", "command": "docker run -p 8080:80 nginx", "description": "Starta Nginx container.", "example": "docker run -p 8080:80 nginx", "tags": ["container"] },
   { "category": "docker", "command": "docker build -t app .", "description": "Bygg bild från Dockerfile.", "example": "docker build -t my-app .", "tags": ["image"] },
 
   { "category": "lint", "command": "ESLint + TS", "description": "Initiera ESLint i TS-projekt.", "example": "npm i -D eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin\nnpx eslint --init", "tags": ["eslint"] },
   { "category": "format", "command": "Prettier config", "description": "Minimal formatkonfig.", "example": "{ \"singleQuote\": true, \"semi\": false }", "tags": ["prettier"] },
   { "category": "vitest", "command": "Vitest (Vite test)", "description": "Snabb test-runner.", "example": "npm i -D vitest\nnpx vitest", "tags": ["test"] }
-]
+  ]
