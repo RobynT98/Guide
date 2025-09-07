@@ -55,3 +55,11 @@ pre.cmd { margin:.5rem 0; padding:.65rem .75rem; background:#0f1519; border:1px 
 details summary { cursor:pointer; }
 #installBtn { background:var(--brand); border: none; color:black; font-weight:600; }
 #installBtn:hover { filter:brightness(1.05); }
+.badge {
+  display:inline-block;
+  margin-right:.3rem; /* ← lite spacing */
+  margin-top:.2rem;
+}
+.meta div:first-child { 
+  display:flex; flex-wrap:wrap; gap:.25rem; 
+}
