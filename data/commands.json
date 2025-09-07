@@ -1,7 +1,4 @@
 [
-  /* =======================
-     WSL / Linux / Shell
-     ======================= */
   { "category": "wsl", "command": "wsl --install", "description": "Installera WSL.", "example": "wsl --install", "tags": ["windows","linux"] },
   { "category": "wsl", "command": "wsl -l -v", "description": "Lista distros och versioner.", "example": "wsl -l -v", "tags": ["info"] },
   { "category": "wsl", "command": "wsl --set-default-version 2", "description": "Sätt WSL2 som standard.", "example": "wsl --set-default-version 2", "tags": ["config"] },
@@ -47,9 +44,6 @@
   { "category": "pnpm", "command": "pnpm add <paket>", "description": "Lägg till beroende.", "example": "pnpm add workbox-cli", "tags": ["deps"] },
   { "category": "yarn", "command": "yarn add <paket>", "description": "Lägg till beroende (Yarn).", "example": "yarn add axios", "tags": ["deps"] },
 
-  /* =======================
-     ESM / CJS / MJS / JSON
-     ======================= */
   { "category": "esm", "command": "\"type\": \"module\"", "description": "Tillåt ESM-import i Node.", "example": "{ \"type\": \"module\" }", "tags": ["package.json"] },
   { "category": "esm", "command": "import greet from './greet.js'", "description": "Default-import.", "example": "import greet from './greet.js'", "tags": ["import"] },
   { "category": "esm", "command": "export default function fn(){}", "description": "Default-export.", "example": "export default function greet(){}", "tags": ["export"] },
@@ -60,11 +54,8 @@
   { "category": "json", "command": "JSON.parse / JSON.stringify", "description": "Konvertera mellan sträng/objekt.", "example": "JSON.stringify(obj, null, 2)", "tags": ["json"] },
   { "category": "json", "command": "package.json – scripts", "description": "Definiera kommandon.", "example": "{ \"scripts\": { \"dev\":\"vite\", \"build\":\"vite build\" } }", "tags": ["package.json"] },
   { "category": "json", "command": "package.json – exports", "description": "Public API för paket.", "example": "{ \"exports\":\"./dist/index.js\" }", "tags": ["package.json"] },
-  { "category": "json", "command": "package.json – bin", "description": "Skapa CLI-kommando.", "example": "{ \"bin\": { \"mincli\": \"./bin/cli.js\" } }", "tags": ["cli"] },
-
-  /* =======================
-     JavaScript (webb)
-     ======================= */
+  { "category": "json", "command": "package.json – bin", "description": "Skapa CLI-kommando.", "example": "{ \"bin\": { \"mincli\": \"./bin/cli.js\" } }", "tags": ["cli"] }
+  
   { "category": "js", "command": "fetch → JSON", "description": "Hämta JSON med fetch.", "example": "const data = await fetch('/api').then(r=>r.json())", "tags": ["http"] },
   { "category": "js", "command": "localStorage", "description": "Spara/läs nyckel.", "example": "localStorage.setItem('k','v')", "tags": ["storage"] },
   { "category": "js", "command": "URL + import.meta.url", "description": "Relativ resurs-url i ESM.", "example": "new URL('./img.png', import.meta.url)", "tags": ["url"] },
@@ -72,9 +63,6 @@
   { "category": "js", "command": "Intl (datum/valuta)", "description": "Formattera lokalt.", "example": "new Intl.NumberFormat('sv-SE',{style:'currency',currency:'SEK'}).format(199)", "tags": ["intl"] },
   { "category": "js", "command": "AbortController", "description": "Avbryt fetch.", "example": "const ac=new AbortController(); fetch(url,{signal:ac.signal}); ac.abort()", "tags": ["http"] },
 
-  /* =======================
-     TypeScript / TSX
-     ======================= */
   { "category": "ts", "command": "npm i -D typescript", "description": "Installera TS.", "example": "npm i -D typescript", "tags": ["install"] },
   { "category": "ts", "command": "npx tsc --init", "description": "Skapa tsconfig.", "example": "npx tsc --init", "tags": ["config"] },
   { "category": "ts", "command": "tsconfig (NodeNext)", "description": "Modern Node/ESM konfig.", "example": "{ \"compilerOptions\": { \"module\":\"NodeNext\",\"moduleResolution\":\"NodeNext\",\"target\":\"ES2022\",\"outDir\":\"dist\",\"strict\":true } }", "tags": ["config"] },
@@ -82,16 +70,10 @@
   { "category": "ts", "command": "Generics / Narrowing", "description": "Vardagsmagi i TS.", "example": "function ok<T>(v:T){return v}; function len(x:string|string[]){return typeof x==='string'?x.length:x.length}", "tags": ["types"] },
   { "category": "tsx", "command": "Minimal TSX-komponent", "description": "React + TSX liten komponent.", "example": "type BtnProps={label:string}\nexport const Btn=({label}:BtnProps)=>(<button>{label}</button>)", "tags": ["react"] },
 
-  /* =======================
-     Vite / Build
-     ======================= */
   { "category": "vite", "command": "Skapa projekt (vanilla-ts)", "description": "Vite + TypeScript.", "example": "npm create vite@latest my-app -- --template vanilla-ts", "tags": ["scaffold"] },
   { "category": "vite", "command": "Base för GitHub Pages", "description": "Sätt base-path i Vite.", "example": "import { defineConfig } from 'vite'\nexport default defineConfig({ base: '/pwa-guide/' })", "tags": ["config"] },
   { "category": "vite", "command": "Build/preview", "description": "Bygg och förhandsgranska.", "example": "npm run build && npm run preview", "tags": ["build"] },
 
-  /* =======================
-     PWA / Service Worker / Workbox
-     ======================= */
   { "category": "pwa", "command": "<link rel=\"manifest\" href=\"manifest.webmanifest\">", "description": "Länka manifest.", "example": "<link rel=\"manifest\" href=\"manifest.webmanifest\">", "tags": ["manifest"] },
   { "category": "pwa", "command": "navigator.serviceWorker.register('./sw.js',{scope:'./'})", "description": "Registrera SW relativt.", "example": "navigator.serviceWorker.register('./sw.js',{scope:'./'})", "tags": ["sw"] },
   { "category": "pwa", "command": "skipWaiting + clients.claim", "description": "Ta kontroll direkt.", "example": "self.addEventListener('install',()=>self.skipWaiting()); self.addEventListener('activate',()=>self.clients.claim());", "tags": ["sw"] },
@@ -99,60 +81,35 @@
   { "category": "workbox", "command": "generateSW", "description": "Generera SW vid build.", "example": "workbox generateSW workbox.config.js", "tags": ["workbox","build"] },
   { "category": "workbox", "command": "workbox.config.js (ex)", "description": "Minimal konfig.", "example": "module.exports={ globDirectory:'dist', globPatterns:['**/*.{html,js,css,png,webmanifest}'], swDest:'dist/sw.js' }", "tags": ["config"] },
 
-  /* =======================
-     Firebase CLI
-     ======================= */
   { "category": "firebase", "command": "npm i -g firebase-tools", "description": "Installera CLI.", "example": "npm i -g firebase-tools", "tags": ["cli"] },
   { "category": "firebase", "command": "firebase login", "description": "Logga in.", "example": "firebase login", "tags": ["auth"] },
   { "category": "firebase", "command": "firebase init hosting", "description": "Initiera Hosting.", "example": "firebase init hosting", "tags": ["hosting"] },
   { "category": "firebase", "command": "firebase deploy", "description": "Publicera.", "example": "firebase deploy", "tags": ["deploy"] },
 
-  /* =======================
-     GitHub Actions (YAML)
-     ======================= */
   { "category": "yaml", "command": "Checkout + Node", "description": "Grunden i workflow.", "example": "uses: actions/checkout@v4\n---\nuses: actions/setup-node@v4\nwith:\n  node-version: 20", "tags": ["gha"] },
   { "category": "yaml", "command": "Pages deploy", "description": "Deploy GitHub Pages via action.", "example": "uses: actions/deploy-pages@v4", "tags": ["pages"] },
   { "category": "yaml", "command": "Firebase deploy action", "description": "Hosting-deploy i CI.", "example": "uses: FirebaseExtended/action-hosting-deploy@v0\nwith:\n  repoToken: ${{ secrets.GITHUB_TOKEN }}\n  channelId: live\n  projectId: YOUR_PROJECT_ID", "tags": ["firebase","gha"] },
 
-  /* =======================
-     HTML / CSS / Markdown
-     ======================= */
   { "category": "html", "command": "Meta viewport", "description": "Responsiv skala.", "example": "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />", "tags": ["meta"] },
   { "category": "html", "command": "Theme color", "description": "Statusbar-färg PWA.", "example": "<meta name=\"theme-color\" content=\"#0d9488\">", "tags": ["pwa"] },
   { "category": "css", "command": "Centera snabbt (grid)", "description": "Placera mitten.", "example": "body{min-height:100svh;display:grid;place-items:center}", "tags": ["layout"] },
   { "category": "css", "command": "Dark mode auto", "description": "Respektera systemläge.", "example": ":root{color-scheme: light dark}", "tags": ["theme"] },
   { "category": "markdown", "command": "Kodblock med språk", "description": "Syntaxhighlight.", "example": "```bash\ngit init\n```", "tags": ["docs"] },
   { "category": "markdown", "command": "Länk", "description": "MD-länk.", "example": "[PWA](https://robynT98.github.io/pwa-guide/)", "tags": ["docs"] },
-
-  /* =======================
-     HTTP / API / verktyg
-     ======================= */
+  
   { "category": "http", "command": "curl GET → JSON", "description": "GET och parsa.", "example": "curl -s https://api.github.com | jq '.'", "tags": ["curl","jq"] },
   { "category": "http", "command": "curl POST JSON", "description": "Skicka JSON.", "example": "curl -X POST -H 'Content-Type: application/json' -d '{\"a\":1}' https://httpbin.org/post", "tags": ["curl"] },
   { "category": "jq", "command": "jq filter", "description": "Plocka fält ur JSON.", "example": "jq '.items[].name' data.json", "tags": ["json"] },
 
-  /* =======================
-     Python
-     ======================= */
   { "category": "python", "command": "python -m venv .venv", "description": "Skapa venv.", "example": "python -m venv .venv", "tags": ["venv"] },
   { "category": "python", "command": "source .venv/bin/activate", "description": "Aktivera venv.", "example": "source .venv/bin/activate", "tags": ["venv"] },
   { "category": "python", "command": "pip install <paket>", "description": "Installera paket.", "example": "pip install requests", "tags": ["pip"] },
 
-  /* =======================
-     Databas lättvikt (SQLite)
-     ======================= */
   { "category": "sqlite", "command": "sqlite3 test.db '.tables'", "description": "Visa tabeller.", "example": "sqlite3 data.db '.tables'", "tags": ["db"] },
   { "category": "sqlite", "command": "sqlite3 test.db 'select 1;'", "description": "Snabb fråga.", "example": "sqlite3 data.db 'select count(*) from notes;'", "tags": ["db"] },
-
-  /* =======================
-     Docker (mini)
-     ======================= */
   { "category": "docker", "command": "docker run -p 8080:80 nginx", "description": "Starta Nginx container.", "example": "docker run -p 8080:80 nginx", "tags": ["container"] },
   { "category": "docker", "command": "docker build -t app .", "description": "Bygg bild från Dockerfile.", "example": "docker build -t my-app .", "tags": ["image"] },
 
-  /* =======================
-     Test / Lint / Format
-     ======================= */
   { "category": "lint", "command": "ESLint + TS", "description": "Initiera ESLint i TS-projekt.", "example": "npm i -D eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin\nnpx eslint --init", "tags": ["eslint"] },
   { "category": "format", "command": "Prettier config", "description": "Minimal formatkonfig.", "example": "{ \"singleQuote\": true, \"semi\": false }", "tags": ["prettier"] },
   { "category": "vitest", "command": "Vitest (Vite test)", "description": "Snabb test-runner.", "example": "npm i -D vitest\nnpx vitest", "tags": ["test"] }
