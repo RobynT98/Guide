@@ -11,7 +11,7 @@ const installBtn  = el('#installBtn');
 let all = [];
 let deferredPrompt = null;
 
-// A2HS (Add to Home Screen)
+// A2HS
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
@@ -23,27 +23,22 @@ installBtn?.addEventListener('click', async () => {
   deferredPrompt = null;
 });
 
-// Load data (with cache bust + error log)
+// Load data (cache-bust + tydlig logg)
 async function loadData() {
   try {
-    const url = `data/commands.json?ts=${Date.now()}`; // bypass cache
+    const url = `data/commands.json?ts=${Date.now()}`;
     const r = await fetch(url, { cache: 'no-store' });
-
-    if (!r.ok) {
-      throw new Error(`HTTP ${r.status} ${r.statusText}`);
-    }
-
+    if (!r.ok) throw new Error(`HTTP ${r.status} ${r.statusText}`);
     const text = await r.text();
-    try {
-      all = JSON.parse(text);
-    } catch (e) {
+    try { all = JSON.parse(text); }
+    catch (e) {
       console.error('JSON-parse-fel i commands.json. Förhandsvisning:', text.slice(0, 200));
       throw e;
     }
   } catch (e) {
     console.error('Kunde inte ladda commands.json', e);
     all = [];
-    countEl.textContent = 'Fel: kunde inte ladda commands.json';
+    if (countEl) countEl.textContent = 'Fel: kunde inte ladda commands.json';
   }
   initFilters();
   render();
@@ -54,9 +49,8 @@ function initFilters() {
   catSelect.innerHTML =
     '<option value="">Alla kategorier</option>' +
     cats.map(c => `<option value="${c}">${c}</option>`).join('');
-  // restore last state
-  const s = localStorage.getItem('cmdSearch') || '';
-  const c = localStorage.getItem('cmdCat') || '';
+  const s  = localStorage.getItem('cmdSearch') || '';
+  const c  = localStorage.getItem('cmdCat') || '';
   const so = localStorage.getItem('cmdSort') || 'relevance';
   searchInput.value = s; catSelect.value = c; sortSelect.value = so;
 }
@@ -65,13 +59,9 @@ function score(item, q) {
   if (!q) return 1;
   q = q.toLowerCase();
   const hay = (item.command + ' ' + item.description + ' ' + (item.tags||[]).join(' ')).toLowerCase();
-  if (hay.includes(q)) return 1;
-  return 0;
+  return hay.includes(q) ? 1 : 0;
 }
-
-function compareAlpha(a, b) {
-  return a.command.localeCompare(b.command, 'sv');
-}
+const compareAlpha = (a,b) => a.command.localeCompare(b.command, 'sv');
 
 function render() {
   const q = searchInput.value.trim().toLowerCase();
@@ -86,7 +76,6 @@ function render() {
   else items.sort((a,b) => b._score - a._score || compareAlpha(a,b));
 
   countEl.textContent = items.length ? `${items.length} träffar` : 'Inga träffar';
-
   resultsEl.innerHTML = items.map(it => toCard(it)).join('');
   attachCopyHandlers();
 }
@@ -120,7 +109,6 @@ function attachCopyHandlers() {
         btn.textContent = 'Kopierat!';
         setTimeout(() => (btn.textContent = 'Kopiera'), 1000);
       } catch {
-        // fallback
         const ta = document.createElement('textarea');
         ta.value = text; document.body.appendChild(ta); ta.select();
         document.execCommand('copy'); ta.remove();
@@ -133,18 +121,13 @@ function attachCopyHandlers() {
 
 function escapeHtml(s=''){return s.replace(/[&<>"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m]));}
 
-// Events
 searchInput.addEventListener('input', () => { localStorage.setItem('cmdSearch', searchInput.value); render(); });
 catSelect.addEventListener('change', () => { localStorage.setItem('cmdCat', catSelect.value); render(); });
 sortSelect.addEventListener('change', () => { localStorage.setItem('cmdSort', sortSelect.value); render(); });
 
 window.addEventListener('keydown', (e) => {
-  if (e.key === '/' && document.activeElement !== searchInput) {
-    e.preventDefault(); searchInput.focus();
-  }
-  if (e.key === 'Escape') {
-    searchInput.value = ''; localStorage.removeItem('cmdSearch'); render();
-  }
+  if (e.key === '/' && document.activeElement !== searchInput) { e.preventDefault(); searchInput.focus(); }
+  if (e.key === 'Escape') { searchInput.value = ''; localStorage.removeItem('cmdSearch'); render(); }
 });
 
 loadData();
