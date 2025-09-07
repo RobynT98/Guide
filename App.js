@@ -1,11 +1,135 @@
-const statusEl = document.getElementById('status');
-document.getElementById('refresh').addEventListener('click', async () => {
-  const reg = await navigator.serviceWorker.getRegistration();
-  if (reg?.waiting) {
-    reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+const el = (q, d=document) => d.querySelector(q);
+const els = (q, d=document) => [...d.querySelectorAll(q)];
+
+const searchInput = el('#search');
+const catSelect   = el('#category');
+const sortSelect  = el('#sort');
+const resultsEl   = el('#results');
+const countEl     = el('#count');
+const installBtn  = el('#installBtn');
+
+let all = [];
+let deferredPrompt = null;
+
+// A2HS
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBtn.hidden = false;
+});
+installBtn?.addEventListener('click', async () => {
+  installBtn.hidden = true;
+  await deferredPrompt?.prompt();
+  deferredPrompt = null;
+});
+
+// Load data
+async function loadData() {
+  try {
+    const r = await fetch('data/commands.json', { cache: 'no-store' });
+    all = await r.json();
+  } catch (e) {
+    console.error('Kunde inte ladda commands.json', e);
+    all = [];
+  }
+  initFilters();
+  render();
+}
+
+function initFilters() {
+  const cats = Array.from(new Set(all.map(x => x.category))).sort();
+  catSelect.innerHTML = '<option value="">Alla kategorier</option>' + cats.map(c => `<option value="${c}">${c}</option>`).join('');
+  // restore last state
+  const s = localStorage.getItem('cmdSearch') || '';
+  const c = localStorage.getItem('cmdCat') || '';
+  const so = localStorage.getItem('cmdSort') || 'relevance';
+  searchInput.value = s; catSelect.value = c; sortSelect.value = so;
+}
+
+function score(item, q) {
+  if (!q) return 1;
+  q = q.toLowerCase();
+  const hay = (item.command + ' ' + item.description + ' ' + (item.tags||[]).join(' ')).toLowerCase();
+  if (hay.includes(q)) return 1;
+  return 0;
+}
+
+function compareAlpha(a, b) {
+  return a.command.localeCompare(b.command, 'sv');
+}
+
+function render() {
+  const q = searchInput.value.trim().toLowerCase();
+  const c = catSelect.value;
+  const s = sortSelect.value;
+
+  let items = all
+    .map(it => ({ ...it, _score: score(it, q) }))
+    .filter(it => (!q || it._score > 0) && (!c || it.category === c));
+
+  if (s === 'alpha') items.sort(compareAlpha);
+  else items.sort((a,b) => b._score - a._score || compareAlpha(a,b));
+
+  countEl.textContent = items.length ? `${items.length} träffar` : 'Inga träffar';
+
+  resultsEl.innerHTML = items.map(it => toCard(it)).join('');
+  attachCopyHandlers();
+}
+
+function toCard(it) {
+  const tags = (it.tags || []).map(t => `<span class="badge">#${t}</span>`).join(' ');
+  return `
+  <article class="card" role="listitem">
+    <header>
+      <code class="cmd">${escapeHtml(it.command)}</code>
+      <span class="badge">${it.category}</span>
+    </header>
+    <p class="desc">${escapeHtml(it.description)}</p>
+    ${it.example ? `<pre class="cmd" aria-label="Exempel"><code>${escapeHtml(it.example)}</code></pre>` : ''}
+    <div class="meta">
+      <div>${tags}</div>
+      <div>
+        <button class="btn copy" data-copy="${escapeHtml(it.command)}">Kopiera</button>
+        ${it.link ? `<a class="btn" href="${it.link}" target="_blank" rel="noopener">Läs mer</a>` : ''}
+      </div>
+    </div>
+  </article>`;
+}
+
+function attachCopyHandlers() {
+  els('.copy').forEach(btn => {
+    btn.onclick = async () => {
+      const text = btn.getAttribute('data-copy');
+      try {
+        await navigator.clipboard.writeText(text);
+        btn.textContent = 'Kopierat!';
+        setTimeout(() => (btn.textContent = 'Kopiera'), 1000);
+      } catch {
+        // fallback
+        const ta = document.createElement('textarea');
+        ta.value = text; document.body.appendChild(ta); ta.select();
+        document.execCommand('copy'); ta.remove();
+        btn.textContent = 'Kopierat!';
+        setTimeout(() => (btn.textContent = 'Kopiera'), 1000);
+      }
+    };
+  });
+}
+
+function escapeHtml(s=''){return s.replace(/[&<>"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m]));}
+
+// Events
+searchInput.addEventListener('input', () => { localStorage.setItem('cmdSearch', searchInput.value); render(); });
+catSelect.addEventListener('change', () => { localStorage.setItem('cmdCat', catSelect.value); render(); });
+sortSelect.addEventListener('change', () => { localStorage.setItem('cmdSort', sortSelect.value); render(); });
+
+window.addEventListener('keydown', (e) => {
+  if (e.key === '/' && document.activeElement !== searchInput) {
+    e.preventDefault(); searchInput.focus();
+  }
+  if (e.key === 'Escape') {
+    searchInput.value = ''; localStorage.removeItem('cmdSearch'); render();
   }
 });
-navigator.serviceWorker?.addEventListener('controllerchange', () => {
-  statusEl.textContent = 'Appen uppdateras, laddar om...';
-  location.reload();
-});
+
+loadData();
