@@ -132,5 +132,6 @@
   { "category": "npm", "command": "npm run build", "description": "Kör build-skript.", "example": "npm run build", "tags": ["script"] },
 
   { "category": "git", "command": "git init && git add . && git commit -m \"init\"", "description": "Initiera repo och commit.", "example": "git init && git add . && git commit -m \"init\"", "tags": ["vcs"] },
-  { "category": "git", "command": "git push -u origin main", "description": "Push med upstream.", "example": "git push -u origin main", "tags": ["vcs"] }
+  { "category": "git", "command": "git push -u origin main", "description": "Push med upstream.", "example": "git push -u origin main", "tags": ["vcs"] },
+   { "category": "school", "command": "I love school"", "description": "School is fun", "example": "Amadeus "", "tags": ["school"] } 
   ]
